@@ -25,7 +25,8 @@ let snake = [
     { x: 0, y: 0 }
 ];
 
-
+const backgroundImage = new Image();
+backgroundImage.src = 'image/background.jpg';
 
 // Initialize sounds
 let eatFoodSound = new Audio('assets/sound/eatsound.mp3');
@@ -81,6 +82,7 @@ function nextTick() {
 };
 function clearBoard() {
     context.clearRect(0, 0, board.width, board.height);
+    context.drawImage(backgroundImage, 0, 0, board.width, board.height);
     // context.fillStyle = background;
     // context.fillRect(0, 0, boardX, boardY)
 };
