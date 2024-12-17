@@ -24,6 +24,31 @@ let snake = [
     { x: unitSize, y: 0 },
     { x: 0, y: 0 }
 ];
+
+
+
+// Initialize sounds
+let eatFoodSound = new Audio('assets/sound/eatsound.mp3');
+let gameOverSound = new Audio('assets/sound/gameover.mp3');
+let moveSnakeSound = new Audio('assets/sound/moveSnake.mp3');
+let backgroundMusic = new Audio('assets/sound/backmusic.mp3');
+
+// Set background music to loop
+backgroundMusic.loop = true;
+
+// Play background music when the game starts
+function playBackgroundMusic() {
+    backgroundMusic.play();
+}
+
+// Stop background music when the game ends
+function stopBackgroundMusic() {
+    backgroundMusic.pause();
+    backgroundMusic.currentTime = 0; // Reset the music to the beginning
+}
+
+
+
 window.addEventListener("keydown", changeDirection);
 reset.addEventListener("click", resetGame);
 gameStart();
@@ -34,6 +59,7 @@ function gameStart() {
     // clearBoard()
     createFood();
     drawFood();
+    playBackgroundMusic();
     nextTick();
 
 };
@@ -50,6 +76,7 @@ function nextTick() {
     }
     else {
         displayGameOver();
+        stopBackgroundMusic();
     }
 };
 function clearBoard() {
@@ -84,6 +111,7 @@ function moveSnake() {
         score += 1;
         scoreText.textContent = score;
         createFood();
+        eatFoodSound.play();
     } else {
         // console.log('before', snake)
         snake.pop();
@@ -115,18 +143,22 @@ function changeDirection(event) {
         case (keyPressed == LEFT && !goingRight):
             velocityX = -unitSize;
             velocityY = 0;
+            moveSnakeSound.play();
             break;
         case (keyPressed == UP && !goingDown):
             velocityX = 0;
             velocityY = -unitSize;
+            moveSnakeSound.play();
             break;
         case (keyPressed == RIGHT && !goingLeft):
             velocityX = unitSize;
             velocityY = 0;
+            moveSnakeSound.play();
             break;
         case (keyPressed == DOWN && !goingUp):
             velocityX = 0;
             velocityY = unitSize;
+            moveSnakeSound.play();
             break;
     }
 };
@@ -152,7 +184,8 @@ function checkGameOver() {
     }
 };
 function displayGameOver() {
-    window.alert("azgui amitan!")
+    gameOverSound.play();
+    // window.alert("azgui amitan!")
     context.font = "50px";
     context.fillStyle = "black";
     context.textAlign = "center";
@@ -161,9 +194,9 @@ function displayGameOver() {
     console.log("hello");
 };
 function resetGame() {
-    score=0;
-    velocityX=unitSize;
-    velocityY=0;
+    score = 0;
+    velocityX = unitSize;
+    velocityY = 0;
     snake = [
         { x: unitSize * 4, y: 0 },
         { x: unitSize * 3, y: 0 },
