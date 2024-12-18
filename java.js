@@ -22,15 +22,16 @@ let snake = [
     { x: unitSize * 3, y: 0 },
     { x: unitSize * 2, y: 0 },
     { x: unitSize, y: 0 },
-    { x: 0, y: 0 }
+    { x: 0, y: 0 },
 ];
 
 const backgroundImage = new Image();
-backgroundImage.src = 'image/background.jpg';
+backgroundImage.src = 'image/gameback.jpg';
+backgroundImage.style.objectFit='cover'
 
 // Initialize sounds
 let eatFoodSound = new Audio('assets/sound/eatsound.mp3');
-let gameOverSound = new Audio('assets/sound/gameover.mp3');
+let gameOverSound = new Audio('assets/sound/gameover2.mp3');
 let moveSnakeSound = new Audio('assets/sound/moveSnake.mp3');
 let backgroundMusic = new Audio('assets/sound/backmusic.mp3');
 
@@ -122,7 +123,7 @@ function moveSnake() {
 };
 function drawSnake() {
     context.fillStyle = snakeColor;
-    context.strokeStyle = snakeBorder;
+    // context.strokeStyle = snakeBorder;
     snake.forEach(snakePart => {
         // console.log(snakePart)
         context.fillRect(snakePart.x, snakePart.y, unitSize, unitSize);
@@ -187,9 +188,9 @@ function checkGameOver() {
 };
 function displayGameOver() {
     gameOverSound.play();
-    // window.alert("azgui amitan!")
+    window.alert("azgui amitan!")
     context.font = "50px";
-    context.fillStyle = "black";
+    context.fillStyle = "black";    
     context.textAlign = "center";
     context.fillText = ("GAME OVER!", boardX / 2, boardY / 2);
     running = false
